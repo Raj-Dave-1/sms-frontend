@@ -11,6 +11,19 @@ export default function Student(props) {
 
   const { studentId } = useParams(); // Get the Path Parameter from the URL
   const navigate = useNavigate();
+  
+  let saveStudent = (event) => {
+    event.preventDefault();
+    
+      axios
+        .post("http://localhost:8080/student", student)
+        .then((response) => {
+          if (response.data != null) {
+            props.showAlert("success", "Record added successfully");
+          }
+        })
+        .catch((error) => props.showAlert("danger", "Error"));
+  };
 
   useEffect(() => {
     if (studentId) {
